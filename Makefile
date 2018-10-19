@@ -41,9 +41,21 @@
 #   make -f Makefile.win
 #
 
+CMAKE_BIN := cmake
+CMAKE_BUILD := $(shell $(CMAKE_BIN) --version 2>/dev/null)
+
+ifdef CMAKE_BUILD
+include Makefile.cmake
+
+else
+
 -include .config
 ifeq ($(CONFIG_WINDOWS_NATIVE),y)
 include tools/Makefile.win
 else
 include tools/Makefile.unix
 endif
+
+endif
+
+
